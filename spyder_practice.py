@@ -5,7 +5,7 @@ Created on Sat May 25 10:47:33 2024
 
 @author: zhengsiping
 """
-#starter 
+#starter
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -15,8 +15,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 st.set_page_config(layout="wide")
 
-
-my_path=''
+my_path='/Users/zhengsiping/data_science/'
 
 df = pd.read_csv(my_path+'dataset.csv')
 
@@ -802,65 +801,67 @@ if selected=="Parent’s background":
     st.title('Parent’s background')    
     
     col1,col2=st.columns([2,5])
-    with st.form("Histograme 11: Parent's background & grades"):
-        fig_11 = px.histogram(pd.melt(df, id_vars=['curricular_units_2nd_sem_grade'], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = 'curricular_units_2nd_sem_grade', color = 'value', barmode = 'group', labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = 5, histnorm = 'percent', title = 'Parent\'s background & grades')
-        fig_11.update_traces(marker_line_width = 0.3)
-        col2.plotly_chart(fig_11)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Mother's qualification': Based on the graph, the color that was the higher thought the graph was white, it represent mother’s who qualifies as commerce courses. No matter if the student is getting a high score or note, most of student’s mother’s qualification in each score level was commerce course. The second top mother’s qualification was light blue, it represent secondary education, it was always the second high mother’s qualification throughout each score level. The third top mother’s qualification was dark blue with a it green inside it, this color represent bachelor degree. In higher score range like 13.75 to 14.246, the number of student’s mother’s qualification of secondary education is increased, and was closer to the numbers of student’s mother’s qualification of commerce courses. Mother’s qualification’s of bachelor and commerce course is at the same education level (I separated them because there were lots of different type of commerce courses, and the numbers of people who have commerce course as their qualification was also a lot), while secondary education was significantly lower, compared to bachelor degrees. Thus, mother’s qualification, or their education level does not have a direct bond with student’s score, but it might have some influence, as mothers that are educated is still the top in quantity in different score level.")
-        col1.markdown(" ")
-        col1.markdown("Father's qualification: Different from mothers qualification, the top frequent father’s qualification that are displayed in the graph for students getting different score was primary education and secondary education, which was a relatively lower education level compared to mother’s qualification. There were only little percentage of father that have a qualification for a degree higher or equal to bachelor. There were not significant change for father’s qualification for student’s that are getting either higher or lower scores, there were only the top two frequent qualifications")
-        col1.markdown(" ")
-        col1.markdown("Mother's occupation: The number of mothers that have an occupation of intermediate level technicians and professions are the most for students getting different scores. Due to the significant different between the number of mothers that occupies in intermediate level technicians and professions compared to other occupations, there was also a significant difference in each score level between them. As the scores increases, lesser student in each score bands, numbers of mothers who occupies in personal service workers are increasing and is similar to numbers of mother occupies in intermediate level technicians and professions. To be more specific, it was in the score band of 16.75 to 17.249. ")
-        col1.markdown(" ")
-        col1.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
+    
+    fig_11 = px.histogram(pd.melt(df, id_vars=['curricular_units_2nd_sem_grade'], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = 'curricular_units_2nd_sem_grade', color = 'value', barmode = 'group', labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = 5, histnorm = 'percent', title = 'Parent\'s background & grades')
+    fig_11.update_traces(marker_line_width = 0.3)
+    col2.plotly_chart(fig_11)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Mother's qualification': Based on the graph, the color that was the higher thought the graph was white, it represent mother’s who qualifies as commerce courses. No matter if the student is getting a high score or note, most of student’s mother’s qualification in each score level was commerce course. The second top mother’s qualification was light blue, it represent secondary education, it was always the second high mother’s qualification throughout each score level. The third top mother’s qualification was dark blue with a it green inside it, this color represent bachelor degree. ")
+    st.markdown("In higher score range like 13.75 to 14.246, the number of student’s mother’s qualification of secondary education is increased, and was closer to the numbers of student’s mother’s qualification of commerce courses. Mother’s qualification’s of bachelor and commerce course is at the same education level (I separated them because there were lots of different type of commerce courses, and the numbers of people who have commerce course as their qualification was also a lot), while secondary education was significantly lower, compared to bachelor degrees. Thus, mother’s qualification, or their education level does not have a direct bond with student’s score, but it might have some influence, as mothers that are educated is still the top in quantity in different score level.")
+    st.markdown(" ")
+    st.markdown("Father's qualification: Different from mothers qualification, the top frequent father’s qualification that are displayed in the graph for students getting different score was primary education and secondary education, which was a relatively lower education level compared to mother’s qualification. There were only little percentage of father that have a qualification for a degree higher or equal to bachelor. There were not significant change for father’s qualification for student’s that are getting either higher or lower scores, there were only the top two frequent qualifications")
+    st.markdown(" ")
+    st.markdown("Mother's occupation: The number of mothers that have an occupation of intermediate level technicians and professions are the most for students getting different scores. Due to the significant different between the number of mothers that occupies in intermediate level technicians and professions compared to other occupations, there was also a significant difference in each score level between them. As the scores increases, lesser student in each score bands, numbers of mothers who occupies in personal service workers are increasing and is similar to numbers of mother occupies in intermediate level technicians and professions. To be more specific, it was in the score band of 16.75 to 17.249. ")
+    st.markdown(" ")
+    st.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
+    st.markdown(" ")
+    st.markdown(" ")
+    st.markdown(" ")
+   
     col1,col2=st.columns([2,5])
-    with st.form("Histograme 12: Parent's background & result"):
-        fig_112 = px.histogram(pd.melt(df, id_vars=['target'], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = 'target', color = 'value', barmode = 'group', labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = 5, histnorm = 'percent', title = 'Parent\'s background & final result')
-        fig_112.update_traces(marker_line_width = 0.3)
-        col2.plotly_chart(fig_112)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Mother’s occupation: In the drop out bar, the most frequently appear occupation was unskilled worker, which accounts for 75.6 percent in total. And then there was intermediate level technician and profession followed after unskilled worker column, and it accounts for 31 percent in total. The last two occupation for mother’s who have a kid that drop outs are administrative staff and personal service worker. It is quite special with the situation presented in this graph, there were only four occupation for mother’s presented, means that other occupation for mothers don’t have any kid that dropped out.")
-        col1.markdown("In the graduate column, the occupation of specialist in different realm accounts for 71 percent here, it was closely followed by intermediate level technicians profession, personal service worker and armed forces professions, their corresponding percentages are 50.4, 49 and 52,9. Then there is unskilled worker and administrative staff at the bottom, accounting for a lower percentage. The graduated bar is still missing one occupation of unknown for mother’s occupation, but it includes all other occupation.")
-        col1.markdown("In the enrolled column, it includes all the occupations for mothers in this bar. The only thing that was strange was the unknown occupation column is account for 100%, it also doesn’t appear in any of the graduated or drop out category.")
-        col1.markdown(" ")
-        col1.markdown("Father’s occupation: In the dropout bar, similar to mother’s occupation, father’s occupation of unskilled worker in accounting for the highest percent, 75. Then it was followed by administrative staff and intermediate level technicians and professions, which was accounting for 22 and 31 each. Different form mother’s occupation, there was a small percent of occupation of specialist in different realm appeared in the group out column.")
-        col1.markdown("In the graduated bar, all the father’s that have a occupation of unknown have their kids graduated. There was personal service worker, armed forces professions, socialist in different realm, administrative staff and intermediate profession and technicians. Which  accounts for 62, 50 44, 44 and 50 percent separately. It have a smaller percent of unskilled worker and operated at the lower zone of the graph. ")
-        col1.markdown("For enrolled column, father’s occupation of operators accounts for the highest percent, then there was specialist in different realm and armed forces profession followed after it. Father’s occupation of unskilled worker have a really low enrolled percentage in this graph.")
-        col1.markdown(" ")
-        col1.markdown("Mother’s qualification: In the drop out column, surprisingly, mother’s qualification of specialization courses and technical preprofessional courses have both dropped out for 100 percent. Then it was followed by lots of other qualification, it is’s mainly on one percentage level, except for mother’s qualification of Master, it was still in a rarely low percent, 16%.")
-        col1.markdown("In the graduated bar, The qualification that accounts for the most percent was accounting and administrating, then it was followed by master. Their percentages are 58 and 53 percents. Except for doctorate, which accounts for the least percent in graduated bar, other ones was on the same or similar level of percentages. ")
-        col1.markdown("In the enrolled bar, all the columns are in a fairly low zone, mother’s qualification of master, Bachelor and doctorate was on the lead. Their percentages are 30, 23, 24 percent. ")
-        col1.markdown(" ")
-        col1.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
-        col1.markdown(" ")
-        col1.markdown("Father’s qualification: In the dropout column, there was a clear three level differences. For the top one, there are drop out for every single qualification, and there were three qualification that have 100 percent drop out, they are accepting and administrative, technical professional courses and commerce courses. For the middle one, there were qualifications of unknown, bachelor and doctorate, which accounts for 72, 60 and 57. For the lowest one, they are all the in the rand form 30 to 39 percent.")
-        col1.markdown("In the graduated column, secondary education, primary education and master was on the lead, the percentages are 51, 51 and 48 percent. It was closely followed by Bachelor, which accounts for 40 percents. There was qualification of unknown, doctorate, and specialization courses in the similar level at a lower zone, they are around 25 to 26 percent.")
-        col1.markdown("In the enrolled, column, similar to mother’s qualification, they are all in a relatively lower zone for father’s qualification as well. Father’s qualification of specialization courses and bachelor were exceptionally high, while all other qualification were at a similar level except for unknown qualification, it was really low. ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
+    
+    fig_112 = px.histogram(pd.melt(df, id_vars=['target'], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = 'target', color = 'value', barmode = 'group', labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = 5, histnorm = 'percent', title = 'Parent\'s background & final result')
+    fig_112.update_traces(marker_line_width = 0.3)
+    col2.plotly_chart(fig_112)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Mother’s occupation: In the drop out bar, the most frequently appear occupation was unskilled worker, which accounts for 75.6 percent in total. And then there was intermediate level technician and profession followed after unskilled worker column, and it accounts for 31 percent in total. The last two occupation for mother’s who have a kid that drop outs are administrative staff and personal service worker. It is quite special with the situation presented in this graph, there were only four occupation for mother’s presented, means that other occupation for mothers don’t have any kid that dropped out.")
+    st.markdown("In the graduate column, the occupation of specialist in different realm accounts for 71 percent here, it was closely followed by intermediate level technicians profession, personal service worker and armed forces professions, their corresponding percentages are 50.4, 49 and 52,9. Then there is unskilled worker and administrative staff at the bottom, accounting for a lower percentage. The graduated bar is still missing one occupation of unknown for mother’s occupation, but it includes all other occupation.")
+    st.markdown("In the enrolled column, it includes all the occupations for mothers in this bar. The only thing that was strange was the unknown occupation column is account for 100%, it also doesn’t appear in any of the graduated or drop out category.")
+    st.markdown(" ")
+    st.markdown("Father’s occupation: In the dropout bar, similar to mother’s occupation, father’s occupation of unskilled worker in accounting for the highest percent, 75. Then it was followed by administrative staff and intermediate level technicians and professions, which was accounting for 22 and 31 each. Different form mother’s occupation, there was a small percent of occupation of specialist in different realm appeared in the group out column.")
+    st.markdown("In the graduated bar, all the father’s that have a occupation of unknown have their kids graduated. There was personal service worker, armed forces professions, socialist in different realm, administrative staff and intermediate profession and technicians. Which  accounts for 62, 50 44, 44 and 50 percent separately. It have a smaller percent of unskilled worker and operated at the lower zone of the graph. ")
+    st.markdown("For enrolled column, father’s occupation of operators accounts for the highest percent, then there was specialist in different realm and armed forces profession followed after it. Father’s occupation of unskilled worker have a really low enrolled percentage in this graph.")
+    st.markdown(" ")
+    st.markdown("Mother’s qualification: In the drop out column, surprisingly, mother’s qualification of specialization courses and technical preprofessional courses have both dropped out for 100 percent. Then it was followed by lots of other qualification, it is’s mainly on one percentage level, except for mother’s qualification of Master, it was still in a rarely low percent, 16%.")
+    st.markdown("In the graduated bar, The qualification that accounts for the most percent was accounting and administrating, then it was followed by master. Their percentages are 58 and 53 percents. Except for doctorate, which accounts for the least percent in graduated bar, other ones was on the same or similar level of percentages. ")
+    st.markdown("In the enrolled bar, all the columns are in a fairly low zone, mother’s qualification of master, Bachelor and doctorate was on the lead. Their percentages are 30, 23, 24 percent. ")
+    st.markdown(" ")
+    st.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
+    st.markdown(" ")
+    st.markdown("Father’s qualification: In the dropout column, there was a clear three level differences. For the top one, there are drop out for every single qualification, and there were three qualification that have 100 percent drop out, they are accepting and administrative, technical professional courses and commerce courses. For the middle one, there were qualifications of unknown, bachelor and doctorate, which accounts for 72, 60 and 57. For the lowest one, they are all the in the rand form 30 to 39 percent.")
+    st.markdown("In the graduated column, secondary education, primary education and master was on the lead, the percentages are 51, 51 and 48 percent. It was closely followed by Bachelor, which accounts for 40 percents. There was qualification of unknown, doctorate, and specialization courses in the similar level at a lower zone, they are around 25 to 26 percent.")
+    st.markdown("In the enrolled, column, similar to mother’s qualification, they are all in a relatively lower zone for father’s qualification as well. Father’s qualification of specialization courses and bachelor were exceptionally high, while all other qualification were at a similar level except for unknown qualification, it was really low. ")
+    st.markdown(" ")
+    st.markdown(" ")
+    st.markdown(" ")
 
     
 
     col1,col2=st.columns([4,5])
-    with st.form("Histogram 4: Courses people in different age favors"):
-        fig_4 = px.histogram(df, x = 'mother\'s_qualification', color = 'course', histnorm = 'percent', barmode = 'group', labels = all_col_dic, facet_col = 'course', facet_col_wrap=3, height = 1000, width = 1800, facet_col_spacing = 0.15, title = 'Courses people in different age favors')
-        fig_4.update_traces(marker_line_width = 0.1)
-        col2.plotly_chart(fig_4)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Summaries: Their mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it donates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
-        col1.markdown(" ")
-        col1.markdown("Features I observed: For student’s major management, over half of their mother’s qualification is commerce courses; For student’s major animation, the top 3 sources of their mother’s qualification was commerce course, Bachelor, and secondary education; For student’s major tourism, the top 2 qualification that their mother; For student’s major communication design, the top 2 qualification that their mother have was also secondary education and commerce course; For student’s major journalism, over half of their mother’s qualification is commerce courses; For student’s major social service, over half of their mother major commerce courses; For student’s major nursing, around 95percent of their mother’s qualification was commerce course, secondary education, accounting & administration and a Bachelor degree; For student’s major basic education, most of their mother’s qualification was ; For student’s major veterinary nursing, mother’s qualification of Bachelor starts to be slightly higher than accounting & administrating; For student’s major agriculture, the top three qualification for their mother was commerce courses, bachelor degree and secondary education (Bachelor degree was the top for this course); For student’s major agronomy, around 80 percent of their mother’s qualification was still the four qualification; For student’s major technology (biofuel), here were only three type of qualification for their mother, it was Bachelor, commerce courses, and administration & accounting, all of them were also in a very small number as well; For student’s major informatics engineering, the mother’s qualification of commerce courses and secondary education was on the lead.")
+    
+    fig_4 = px.histogram(df, x = 'mother\'s_qualification', color = 'course', histnorm = 'percent', barmode = 'group', labels = all_col_dic, facet_col = 'course', facet_col_wrap=3, height = 1000, width = 1800, facet_col_spacing = 0.15, title = 'Courses people in different age favors')
+    fig_4.update_traces(marker_line_width = 0.1)
+    col2.plotly_chart(fig_4)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Summaries: Their mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it donates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
+    col1.markdown(" ")
+    col1.markdown("Features I observed: For student’s major management, over half of their mother’s qualification is commerce courses; For student’s major animation, the top 3 sources of their mother’s qualification was commerce course, Bachelor, and secondary education; For student’s major tourism, the top 2 qualification that their mother; For student’s major communication design, the top 2 qualification that their mother have was also secondary education and commerce course; For student’s major journalism, over half of their mother’s qualification is commerce courses; For student’s major social service, over half of their mother major commerce courses; For student’s major nursing, around 95percent of their mother’s qualification was commerce course, secondary education, accounting & administration and a Bachelor degree; For student’s major basic education, most of their mother’s qualification was ; For student’s major veterinary nursing, mother’s qualification of Bachelor starts to be slightly higher than accounting & administrating; For student’s major agriculture, the top three qualification for their mother was commerce courses, bachelor degree and secondary education (Bachelor degree was the top for this course); For student’s major agronomy, around 80 percent of their mother’s qualification was still the four qualification; For student’s major technology (biofuel), here were only three type of qualification for their mother, it was Bachelor, commerce courses, and administration & accounting, all of them were also in a very small number as well; For student’s major informatics engineering, the mother’s qualification of commerce courses and secondary education was on the lead.")
 
 
 
