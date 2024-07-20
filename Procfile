@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run dataset.py
+web: sh setup.sh && streamlit run spyder_practice.py
