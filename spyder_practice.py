@@ -5,7 +5,7 @@ Created on Sat May 25 10:47:33 2024
 
 @author: zhengsiping
 """
-#starter
+#starter 
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -15,7 +15,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 st.set_page_config(layout="wide")
 
-my_path='/Users/zhengsiping/data_science/'
+
+my_path=''
 
 df = pd.read_csv(my_path+'dataset.csv')
 
