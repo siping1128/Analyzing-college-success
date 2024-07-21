@@ -15,7 +15,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 st.set_page_config(layout="wide")
 
-my_path=''
+my_path='/Users/zhengsiping/data_science/'
 
 df = pd.read_csv(my_path+'dataset.csv')
 
@@ -152,9 +152,9 @@ with st.sidebar:
 		menu_title = 'Navigation Pane',
 		options = ['Abstract', 'Background Information', 'Data Cleaning','Exploratory Analysis', 'Student background', 'Parent’s background', 'Analysis of final result', 'Conclusion', 'Bibliography'],
 		menu_icon = 'music-note-list',
-		icons = ['bookmark-check', 'book', 'box', 'map', 'music-player-fill', 'bar-chart', 'check2-circle'],
+		icons = ['bookmark-check', 'book', 'map', 'person-walking', 'mortarboard', 'motherboard', 'clipboard2-pulse', 'envelope-paper', 'feather'],
 		default_index = 0,
-		)
+        )
 
 
 
@@ -651,7 +651,7 @@ if selected=="Exploratory Analysis":
 
 
     #graph 13
-    st.markdown("### <b>Graph 13 (Histogram): Parent's background characteristic and 1 cetegorical variable</b></b>",unsafe_allow_html=True)
+    st.markdown("### <b>Graph 13 (Histogram): Parent's background characteristic and 1 cetegorical variable</b>",unsafe_allow_html=True)
     col23,col24=st.columns([2,6])
     with st.form("### <b>Graph 13 (Histogram): Parent's background characteristic and 1 cetegorical variable</b>"):
         
@@ -725,76 +725,80 @@ if selected == "Student background":
     
     st.subheader("Scholarship holder and martial status")
     col1,col2=st.columns([4,5])
-    with st.form("Scholarship holder and martial status"):
-        fig_8 = px.histogram(pd.melt(df, id_vars= ['curricular_units_2nd_sem_grade'], value_vars = ['marital_status', 'scholarship_holder']), x = 'curricular_units_2nd_sem_grade', color = 'value', barmode = 'group', facet_col = 'variable', labels = all_col_dic, nbins = 5, histnorm = 'percent', facet_col_wrap =2, title = 'Student\'s background information & Grade in sem 2')
-        fig_8.update_traces(marker_line_width = 1)
-        col2.plotly_chart(fig_8)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Scholarship holder: There were 95 students that does have scholarship gets 0 for their second semester grade; The qualification for scholarship is based on multiple requirement wasn’t only about the grade that student get, otherwise there are probably no scholarship awarded for students that gets scores from 10 -15 for their second semester grades ; The probability for student to get scholarship increases as the scores rises. Below the score level of 12.25 to 12.749, the number of scholarship holder compared to normal student was below 50%; but as student’s achieve a higher academic performances (getting scores that are mot than the level of 12.25to 12.749), then the percentage of the number of scholarship holder compared to normal students are more than 50%, at some situation, it even reaches 70%. For example, the score level of 15.75 to 16.246. ; For some reason, for the top scores, only top one have one scholarship holder, while there were only normal students for top 2 and 3.")
-        col1.markdown(" ")
-        col1.markdown("Marital status: Similar to the previous observation, as single people are the major marital status in the school, it also account for the most numbers of people getting different scores. In higher score range, like 17.25 to 17.74, married people is accounting for 50% of the number of students that are single")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
+    
+    fig_8 = px.histogram(pd.melt(df, id_vars= ['curricular_units_2nd_sem_grade'], value_vars = ['marital_status', 'scholarship_holder']), x = 'curricular_units_2nd_sem_grade', color = 'value', barmode = 'group', facet_col = 'variable', labels = all_col_dic, nbins = 5, histnorm = 'percent', facet_col_wrap =2, title = 'Student\'s background information & Grade in sem 2')
+    fig_8.update_traces(marker_line_width = 1)
+    col2.plotly_chart(fig_8)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("<b>Scholarship holder:<b>")
+    col1.markdown("There were 95 students that does have scholarship gets 0 for their second semester grade; The qualification for scholarship is based on multiple requirement wasn’t only about the grade that student get, otherwise there are probably no scholarship awarded for students that gets scores from 10 -15 for their second semester grades ; The probability for student to get scholarship increases as the scores rises. Below the score level of 12.25 to 12.749, the number of scholarship holder compared to normal student was below 50%; but as student’s achieve a higher academic performances (getting scores that are mot than the level of 12.25to 12.749), then the percentage of the number of scholarship holder compared to normal students are more than 50%, at some situation, it even reaches 70%. For example, the score level of 15.75 to 16.246. ; For some reason, for the top scores, only top one have one scholarship holder, while there were only normal students for top 2 and 3.")
+    st.markdown(" ")
+    st.markdown("<b>Marital status:<b>")
+    st.markdown("Similar to the previous observation, as single people are the major marital status in the school, it also account for the most numbers of people getting different scores. In higher score range, like 17.25 to 17.74, married people is accounting for 50% of the number of students that are single")
+    st.markdown(" ")
+    st.markdown(" ")
+    st.markdown(" ")
         
     col1,col2=st.columns([4,5])
-    with st.form("Histograme 9: Student's background information & Course"):
-        fig_9 = px.histogram(pd.melt(df, id_vars= ['course'], value_vars = ['marital_status', 'scholarship_holder']), x = 'course', color = 'value', barmode = 'group', facet_col = 'variable', labels = all_col_dic, facet_col_wrap =2, title = 'Student\'s background information & Course')
-        fig_9.update_traces(marker_line_width = 0.3)
-        col2.plotly_chart(fig_9)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Scholarship holder: Except for nursing and social service courses, for all other courses, the number of scholarship holder in each course is always less than 50 percent; Scholarship especially favors nursing students; The number of scholarship holders are significantly low in agronomy, informatics engineering, and there were 0 scholarship holders in technologies courses that focus on biofuels; Students likes to major managements the most, but the number of scholarship holder in this course was very little, the quantity of scholarship holders is very similar to social service even though there was a huge gap between total number of people majoring managements and social service")
-        col1.markdown(" ")
-        col1.markdown("Summary: Based on the following features that I have pointed out, scholarship are not given to student’s proportionally in each major, it is given in a relatively random way. Therefore, the probability of a students that might be scholarship holder can’t be determined or predicted based on the number of students majoring different courses")
-        col1.markdown(" ")
-        col1.markdown("Marital status: Light blue bar consist of most people in all score range, they represent single people, or at least aren’t married. They favors Nursing and managements the most.The second large marital status group is married people, they also favors management and nursing, but they also like social services. Widower people like the same three subjects as married people did. ")
-        
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-    st.subheader("Age at enrollment")
+    
+    fig_9 = px.histogram(pd.melt(df, id_vars= ['course'], value_vars = ['marital_status', 'scholarship_holder']), x = 'course', color = 'value', barmode = 'group', facet_col = 'variable', labels = all_col_dic, facet_col_wrap =2, title = 'Student\'s background information & Course')
+    fig_9.update_traces(marker_line_width = 0.3)
+    col2.plotly_chart(fig_9)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("<b>Scholarship holder:<b>")
+    col1.markdown("Except for nursing and social service courses, for all other courses, the number of scholarship holder in each course is always less than 50 percent; Scholarship especially favors nursing students; The number of scholarship holders are significantly low in agronomy, informatics engineering, and there were 0 scholarship holders in technologies courses that focus on biofuels; Students likes to major managements the most, but the number of scholarship holder in this course was very little, the quantity of scholarship holders is very similar to social service even though there was a huge gap between total number of people majoring managements and social service")
+    col1.markdown(" ")
+    col1.markdown("Summary: Based on the following features that I have pointed out, scholarship are not given to student’s proportionally in each major, it is given in a relatively random way. Therefore, the probability of a students that might be scholarship holder can’t be determined or predicted based on the number of students majoring different courses")
+    col1.markdown(" ")
+    st.markdown("<b>Marital status:<b>")
+    st.markdown("Light blue bar consist of most people in all score range, they represent single people, or at least aren’t married. They favors Nursing and managements the most.The second large marital status group is married people, they also favors management and nursing, but they also like social services. Widower people like the same three subjects as married people did. ")
+    
+    st.markdown(" ")
+    st.markdown(" ")
+    st.markdown(" ")
+    col1.subheader("Age at enrollment")
     col1,col2=st.columns([4,5])
-    with st.form("Grade & age at enrollment & attendence time"):
-       fig_1 = px.histogram(df, x = 'curricular_units_2nd_sem_grade', y = 'age_at_enrollment', color = 'daytime_evening_attendance', histfunc = 'avg', barmode = 'group', labels = all_col_dic, nbins = 5, title = 'Grade & age at enrollment & attendence time') 
-       fig_1.update_traces(marker_line_width = 2)
-       col2.plotly_chart(fig_1)
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown("There are three major feature in this graph: Firstly, the average of male student’s enrollments age are much more higher than average female student’s enrollment’s age; Secondly, people that are older, or have a higher average age at enrollment normally attend evening attendance (it may because they have a part time or a full time job in the morning); Thirdly, students that get the highest score in this graph is 18.25-18.74, their and age at enrollment is 18, which is very young.")
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown(" ")
+    
+    fig_1 = px.histogram(df, x = 'curricular_units_2nd_sem_grade', y = 'age_at_enrollment', color = 'daytime_evening_attendance', histfunc = 'avg', barmode = 'group', labels = all_col_dic, nbins = 5, title = 'Grade & age at enrollment & attendence time') 
+    fig_1.update_traces(marker_line_width = 2)
+    col2.plotly_chart(fig_1)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("There are three major feature in this graph: Firstly, the average of male student’s enrollments age are much more higher than average female student’s enrollment’s age; Secondly, people that are older, or have a higher average age at enrollment normally attend evening attendance (it may because they have a part time or a full time job in the morning); Thirdly, students that get the highest score in this graph is 18.25-18.74, their and age at enrollment is 18, which is very young.")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
     
 
     col1,col2=st.columns([4,5])
-    with st.form("Histogram 2: Course & age at enrollment & marital status"):
-       fig_2 = px.histogram(df, x = 'age_at_enrollment', y = 'course', color = 'marital_status', histfunc = 'avg', barmode = 'group', labels = all_col_dic, title = 'Course & age at enrollment & marital status')
-       fig_2.update_traces(marker_line_width = 1)
-       col2.plotly_chart(fig_2)
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown("Legally separated people like to attend social service type courses the most; Widower people especially favors managements and agronomy; Married people favors managements the most as well; Divorced people likes social services type of courses; Facto union people majors management type of courses the most; Single people favor the largest amount of courses, especially nursing.")
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown(" ")
+    
+    fig_2 = px.histogram(df, x = 'age_at_enrollment', y = 'course', color = 'marital_status', histfunc = 'avg', barmode = 'group', labels = all_col_dic, title = 'Course & age at enrollment & marital status')
+    fig_2.update_traces(marker_line_width = 1)
+    col2.plotly_chart(fig_2)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Legally separated people like to attend social service type courses the most; Widower people especially favors managements and agronomy; Married people favors managements the most as well; Divorced people likes social services type of courses; Facto union people majors management type of courses the most; Single people favor the largest amount of courses, especially nursing.")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
 
 
     col1,col2=st.columns([4,5])
-    with st.form("Histogram 3: Courses people in different age favors"):
-       fig_3 = px.histogram(df, x = 'age_at_enrollment', color = 'course', histnorm = 'percent', barmode = 'group', labels = all_col_dic, nbins =5, title = 'Courses people in different age favors')
-       fig_3.update_traces(marker_line_width = 1)
-       col2.plotly_chart(fig_3)
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown(" ")
-       col1.markdown("People who have an age of enrollment in 20-39 favors biofuel production of technology and managements a lot, which account for 100 percent and more than 80 percent; There were lesser people enrolled in collage as the age grows up; The age of 20-39 is the age that have the most people enrolled in college; For young people who have an age between 0-19, they especially favor journalism & communication and nursing; For older people who have an age around 49.5, they especially favor agronomy and managements. I think older people is more targeted when they are choosing courses while younger people tends to choose more broader course.")
-    
+   
+    fig_3 = px.histogram(df, x = 'age_at_enrollment', color = 'course', histnorm = 'percent', barmode = 'group', labels = all_col_dic, nbins =5, title = 'Courses people in different age favors')
+    fig_3.update_traces(marker_line_width = 1)
+    col2.plotly_chart(fig_3)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("People who have an age of enrollment in 20-39 favors biofuel production of technology and managements a lot, which account for 100 percent and more than 80 percent; There were lesser people enrolled in collage as the age grows up; The age of 20-39 is the age that have the most people enrolled in college; For young people who have an age between 0-19, they especially favor journalism & communication and nursing; For older people who have an age around 49.5, they especially favor agronomy and managements. I think older people is more targeted when they are choosing courses while younger people tends to choose more broader course.")
+ 
 
 
 if selected=="Parent’s background":
@@ -808,13 +812,17 @@ if selected=="Parent’s background":
     col1.markdown(" ")
     col1.markdown(" ")
     col1.markdown(" ")
-    col1.markdown("Mother's qualification': Based on the graph, the color that was the higher thought the graph was white, it represent mother’s who qualifies as commerce courses. No matter if the student is getting a high score or note, most of student’s mother’s qualification in each score level was commerce course. The second top mother’s qualification was light blue, it represent secondary education, it was always the second high mother’s qualification throughout each score level. The third top mother’s qualification was dark blue with a it green inside it, this color represent bachelor degree. ")
+    col1.markdown("<b>Mother's qualification:<b>")
+    col1.markdown("Based on the graph, the color that was the higher thought the graph was white, it represent mother’s who qualifies as commerce courses. No matter if the student is getting a high score or note, most of student’s mother’s qualification in each score level was commerce course. The second top mother’s qualification was light blue, it represent secondary education, it was always the second high mother’s qualification throughout each score level. The third top mother’s qualification was dark blue with a it green inside it, this color represent bachelor degree. ")
     st.markdown("In higher score range like 13.75 to 14.246, the number of student’s mother’s qualification of secondary education is increased, and was closer to the numbers of student’s mother’s qualification of commerce courses. Mother’s qualification’s of bachelor and commerce course is at the same education level (I separated them because there were lots of different type of commerce courses, and the numbers of people who have commerce course as their qualification was also a lot), while secondary education was significantly lower, compared to bachelor degrees. Thus, mother’s qualification, or their education level does not have a direct bond with student’s score, but it might have some influence, as mothers that are educated is still the top in quantity in different score level.")
     st.markdown(" ")
-    st.markdown("Father's qualification: Different from mothers qualification, the top frequent father’s qualification that are displayed in the graph for students getting different score was primary education and secondary education, which was a relatively lower education level compared to mother’s qualification. There were only little percentage of father that have a qualification for a degree higher or equal to bachelor. There were not significant change for father’s qualification for student’s that are getting either higher or lower scores, there were only the top two frequent qualifications")
+    st.markdown("<b>Father's qualification:<b>")
+    st.markdown("Different from mothers qualification, the top frequent father’s qualification that are displayed in the graph for students getting different score was primary education and secondary education, which was a relatively lower education level compared to mother’s qualification. There were only little percentage of father that have a qualification for a degree higher or equal to bachelor. There were not significant change for father’s qualification for student’s that are getting either higher or lower scores, there were only the top two frequent qualifications")
     st.markdown(" ")
-    st.markdown("Mother's occupation: The number of mothers that have an occupation of intermediate level technicians and professions are the most for students getting different scores. Due to the significant different between the number of mothers that occupies in intermediate level technicians and professions compared to other occupations, there was also a significant difference in each score level between them. As the scores increases, lesser student in each score bands, numbers of mothers who occupies in personal service workers are increasing and is similar to numbers of mother occupies in intermediate level technicians and professions. To be more specific, it was in the score band of 16.75 to 17.249. ")
+    st.markdown("<b>Mother's occupation:<b>")
+    st.markdown("The number of mothers that have an occupation of intermediate level technicians and professions are the most for students getting different scores. Due to the significant different between the number of mothers that occupies in intermediate level technicians and professions compared to other occupations, there was also a significant difference in each score level between them. As the scores increases, lesser student in each score bands, numbers of mothers who occupies in personal service workers are increasing and is similar to numbers of mother occupies in intermediate level technicians and professions. To be more specific, it was in the score band of 16.75 to 17.249. ")
     st.markdown(" ")
+    st.markdown("<b>Father's occupation:<b>")
     st.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
     st.markdown(" ")
     st.markdown(" ")
@@ -828,21 +836,25 @@ if selected=="Parent’s background":
     col1.markdown(" ")
     col1.markdown(" ")
     col1.markdown(" ")
-    col1.markdown("Mother’s occupation: In the drop out bar, the most frequently appear occupation was unskilled worker, which accounts for 75.6 percent in total. And then there was intermediate level technician and profession followed after unskilled worker column, and it accounts for 31 percent in total. The last two occupation for mother’s who have a kid that drop outs are administrative staff and personal service worker. It is quite special with the situation presented in this graph, there were only four occupation for mother’s presented, means that other occupation for mothers don’t have any kid that dropped out.")
+    col1.markdown("<b>Mother's occupation:<b>")
+    col1.markdown("In the drop out bar, the most frequently appear occupation was unskilled worker, which accounts for 75.6 percent in total. And then there was intermediate level technician and profession followed after unskilled worker column, and it accounts for 31 percent in total. The last two occupation for mother’s who have a kid that drop outs are administrative staff and personal service worker. It is quite special with the situation presented in this graph, there were only four occupation for mother’s presented, means that other occupation for mothers don’t have any kid that dropped out.")
     st.markdown("In the graduate column, the occupation of specialist in different realm accounts for 71 percent here, it was closely followed by intermediate level technicians profession, personal service worker and armed forces professions, their corresponding percentages are 50.4, 49 and 52,9. Then there is unskilled worker and administrative staff at the bottom, accounting for a lower percentage. The graduated bar is still missing one occupation of unknown for mother’s occupation, but it includes all other occupation.")
     st.markdown("In the enrolled column, it includes all the occupations for mothers in this bar. The only thing that was strange was the unknown occupation column is account for 100%, it also doesn’t appear in any of the graduated or drop out category.")
     st.markdown(" ")
-    st.markdown("Father’s occupation: In the dropout bar, similar to mother’s occupation, father’s occupation of unskilled worker in accounting for the highest percent, 75. Then it was followed by administrative staff and intermediate level technicians and professions, which was accounting for 22 and 31 each. Different form mother’s occupation, there was a small percent of occupation of specialist in different realm appeared in the group out column.")
+    st.markdown("<b>Father's occupation:<b>")
+    st.markdown("In the dropout bar, similar to mother’s occupation, father’s occupation of unskilled worker in accounting for the highest percent, 75. Then it was followed by administrative staff and intermediate level technicians and professions, which was accounting for 22 and 31 each. Different form mother’s occupation, there was a small percent of occupation of specialist in different realm appeared in the group out column.")
     st.markdown("In the graduated bar, all the father’s that have a occupation of unknown have their kids graduated. There was personal service worker, armed forces professions, socialist in different realm, administrative staff and intermediate profession and technicians. Which  accounts for 62, 50 44, 44 and 50 percent separately. It have a smaller percent of unskilled worker and operated at the lower zone of the graph. ")
     st.markdown("For enrolled column, father’s occupation of operators accounts for the highest percent, then there was specialist in different realm and armed forces profession followed after it. Father’s occupation of unskilled worker have a really low enrolled percentage in this graph.")
     st.markdown(" ")
-    st.markdown("Mother’s qualification: In the drop out column, surprisingly, mother’s qualification of specialization courses and technical preprofessional courses have both dropped out for 100 percent. Then it was followed by lots of other qualification, it is’s mainly on one percentage level, except for mother’s qualification of Master, it was still in a rarely low percent, 16%.")
+    st.markdown("<b>Mother's qualification:<b>")
+    st.markdown("In the drop out column, surprisingly, mother’s qualification of specialization courses and technical preprofessional courses have both dropped out for 100 percent. Then it was followed by lots of other qualification, it is’s mainly on one percentage level, except for mother’s qualification of Master, it was still in a rarely low percent, 16%.")
     st.markdown("In the graduated bar, The qualification that accounts for the most percent was accounting and administrating, then it was followed by master. Their percentages are 58 and 53 percents. Except for doctorate, which accounts for the least percent in graduated bar, other ones was on the same or similar level of percentages. ")
     st.markdown("In the enrolled bar, all the columns are in a fairly low zone, mother’s qualification of master, Bachelor and doctorate was on the lead. Their percentages are 30, 23, 24 percent. ")
     st.markdown(" ")
     st.markdown("The situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers. ")
     st.markdown(" ")
-    st.markdown("Father’s qualification: In the dropout column, there was a clear three level differences. For the top one, there are drop out for every single qualification, and there were three qualification that have 100 percent drop out, they are accepting and administrative, technical professional courses and commerce courses. For the middle one, there were qualifications of unknown, bachelor and doctorate, which accounts for 72, 60 and 57. For the lowest one, they are all the in the rand form 30 to 39 percent.")
+    st.markdown("<b>Father's qualification:<b>")
+    st.markdown("In the dropout column, there was a clear three level differences. For the top one, there are drop out for every single qualification, and there were three qualification that have 100 percent drop out, they are accepting and administrative, technical professional courses and commerce courses. For the middle one, there were qualifications of unknown, bachelor and doctorate, which accounts for 72, 60 and 57. For the lowest one, they are all the in the rand form 30 to 39 percent.")
     st.markdown("In the graduated column, secondary education, primary education and master was on the lead, the percentages are 51, 51 and 48 percent. It was closely followed by Bachelor, which accounts for 40 percents. There was qualification of unknown, doctorate, and specialization courses in the similar level at a lower zone, they are around 25 to 26 percent.")
     st.markdown("In the enrolled, column, similar to mother’s qualification, they are all in a relatively lower zone for father’s qualification as well. Father’s qualification of specialization courses and bachelor were exceptionally high, while all other qualification were at a similar level except for unknown qualification, it was really low. ")
     st.markdown(" ")
@@ -859,9 +871,11 @@ if selected=="Parent’s background":
     col1.markdown(" ")
     col1.markdown(" ")
     col1.markdown(" ")
-    col1.markdown("Summaries: Their mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it donates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
+    col1.markdown("<b>Summaries:<b>")
+    col1.markdown("Their mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it donates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
     col1.markdown(" ")
-    col1.markdown("Features I observed: For student’s major management, over half of their mother’s qualification is commerce courses; For student’s major animation, the top 3 sources of their mother’s qualification was commerce course, Bachelor, and secondary education; For student’s major tourism, the top 2 qualification that their mother; For student’s major communication design, the top 2 qualification that their mother have was also secondary education and commerce course; For student’s major journalism, over half of their mother’s qualification is commerce courses; For student’s major social service, over half of their mother major commerce courses; For student’s major nursing, around 95percent of their mother’s qualification was commerce course, secondary education, accounting & administration and a Bachelor degree; For student’s major basic education, most of their mother’s qualification was ; For student’s major veterinary nursing, mother’s qualification of Bachelor starts to be slightly higher than accounting & administrating; For student’s major agriculture, the top three qualification for their mother was commerce courses, bachelor degree and secondary education (Bachelor degree was the top for this course); For student’s major agronomy, around 80 percent of their mother’s qualification was still the four qualification; For student’s major technology (biofuel), here were only three type of qualification for their mother, it was Bachelor, commerce courses, and administration & accounting, all of them were also in a very small number as well; For student’s major informatics engineering, the mother’s qualification of commerce courses and secondary education was on the lead.")
+    col1.markdown("<b>Details:<b>")
+    col1.markdown("For student’s major management, over half of their mother’s qualification is commerce courses; For student’s major animation, the top 3 sources of their mother’s qualification was commerce course, Bachelor, and secondary education; For student’s major tourism, the top 2 qualification that their mother; For student’s major communication design, the top 2 qualification that their mother have was also secondary education and commerce course; For student’s major journalism, over half of their mother’s qualification is commerce courses; For student’s major social service, over half of their mother major commerce courses; For student’s major nursing, around 95percent of their mother’s qualification was commerce course, secondary education, accounting & administration and a Bachelor degree; For student’s major basic education, most of their mother’s qualification was ; For student’s major veterinary nursing, mother’s qualification of Bachelor starts to be slightly higher than accounting & administrating; For student’s major agriculture, the top three qualification for their mother was commerce courses, bachelor degree and secondary education (Bachelor degree was the top for this course); For student’s major agronomy, around 80 percent of their mother’s qualification was still the four qualification; For student’s major technology (biofuel), here were only three type of qualification for their mother, it was Bachelor, commerce courses, and administration & accounting, all of them were also in a very small number as well; For student’s major informatics engineering, the mother’s qualification of commerce courses and secondary education was on the lead.")
 
 
 
@@ -874,79 +888,82 @@ if selected=="Analysis of final result":
     st.title('Analysis of final result') 
 
     col1,col2=st.columns([4,5])
-    with st.form("GDP & Grade & Result"):
-        fig_5 = px.scatter(df, x = 'gdp', y = 'curricular_units_2nd_sem_grade', color = 'target', labels = all_col_dic, title = 'GDP & Grade & Result')
-        fig_5.update_traces(marker_line_width = 1)
-        col2.plotly_chart(fig_5)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("In the graph presented above, there were different column that were plot by the dotes in the graph, it represents different GDP level for the X axis. The length (height) of the line plates by the dotes were the 2nd semester grades for students. All the line starts around the level of 10, and all ends around 17 for their grades, doesn’t show any significant different. A note is that there were overlap between the dotes, therefore, the target (dropout, enrolled, graduate) was not accurate if only uses visual to measure. For summary, there were no major differences between student’s target, which is whether they dropout or not. Thus, proves that GDP is barely connected to student’s grades.")
-        col1.markdown(" ")
-        col1.markdown("People major different courses when the local unemployment rate changes. Based on my observation for the courses that were favors by student living in a relatively higher unemployment area and low unemployment area: People living in a relatively low unemployment area tends to favors entertainments fields, or areas that might not help them to earn lots of money; People living in a relatively higher unemployment area tends to major courses that normally involve a lot of unique skills and specialties in a certain area.")
-        col1.markdown(" ")
-        col1.markdown("Detail features: For areas that have a relatively low unemployment rate, the top majors for students are animation & multimedia design; tourism; communication design; journalism and communication; social service; managements; basic education; veterinary nursing; agriculture; and information engineering; For areas that have a relatively higher unemployment rate, the top courses for students are Nursing, agronomy technologies (biofuel).")
-
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")  
-    col1,col2=st.columns([4,5])
-    with st.form("Histograme 6_1: Result & Grade in sem 1"):
-        fig_6 = px.histogram(df, x = 'curricular_units_1st_sem_grade', color = 'target', barmode = 'group', labels = all_col_dic, histnorm = 'percent', nbins = 5, title = 'Result & Grade in sem 1')
-        fig_6.update_traces(marker_line_width = 3)
-        col2.plotly_chart(fig_6)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("People that successfully graduated gets the most score; Dropout student overall score counts was higher than enrolled students; This graph presents a standards in terms of score for student to graduates; It was the same with first semester grades, people who successfully graduated gets the highest score.")
-
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-
-    col1,col2=st.columns([4,5])
-    with st.form("Histograme 6_2: Result & Grade in sem 2"):
-        fig6_2 = px.histogram(df, x = 'curricular_units_2nd_sem_grade', color = 'target', barmode = 'group', labels = all_col_dic, histnorm = 'percent', nbins = 5, title = 'Result & Grade in sem 2')
-        fig6_2.update_traces(marker_line_width = 3)
-        col2.plotly_chart(fig6_2)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Dropout students get 0 as their sec semester grade the most. Surprisingly, there were 75 people that graduated also gets 0 as their second semester grade. Graduated student get the highest score, or have the most student in higher scores compared to group outs and enrolled student’s, for instance, from 11.25-11.749 to 16.75-17.249. The number of student enrolled or dropout are similar in every score level except for 0.")
-
     
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")    
+    fig_5 = px.scatter(df, x = 'gdp', y = 'curricular_units_2nd_sem_grade', color = 'target', labels = all_col_dic, title = 'GDP & Grade & Result')
+    fig_5.update_traces(marker_line_width = 1)
+    col2.plotly_chart(fig_5)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("In the graph presented above, there were different column that were plot by the dotes in the graph, it represents different GDP level for the X axis. The length (height) of the line plates by the dotes were the 2nd semester grades for students. All the line starts around the level of 10, and all ends around 17 for their grades, doesn’t show any significant different. A note is that there were overlap between the dotes, therefore, the target (dropout, enrolled, graduate) was not accurate if only uses visual to measure. For summary, there were no major differences between student’s target, which is whether they dropout or not. Thus, proves that GDP is barely connected to student’s grades.")
+    col1.markdown(" ")
+    col1.markdown("People major different courses when the local unemployment rate changes.")
+    st.markdown("Based on my observation for the courses that were favors by student living in a relatively higher unemployment area and low unemployment area: People living in a relatively low unemployment area tends to favors entertainments fields, or areas that might not help them to earn lots of money; People living in a relatively higher unemployment area tends to major courses that normally involve a lot of unique skills and specialties in a certain area.")
+    st.markdown(" ")
+    st.markdown("<b>Details:<b>")
+    st.markdown("For areas that have a relatively low unemployment rate, the top majors for students are animation & multimedia design; tourism; communication design; journalism and communication; social service; managements; basic education; veterinary nursing; agriculture; and information engineering; For areas that have a relatively higher unemployment rate, the top courses for students are Nursing, agronomy technologies (biofuel).")
+
+    st.markdown(" ")
+    st.markdown(" ")
+    st.markdown(" ")  
+    
     col1,col2=st.columns([4,5])
-    with st.form("Histograme 7: Result & marital status"):
-        fig_7 = px.histogram(df, x = 'marital_status', color = 'target', barmode = 'group', labels = all_col_dic, title = 'Result & marital status')
-        fig_7.update_traces(marker_line_width = 3)
-        col2.plotly_chart(fig_7)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("Single is the group that includes the most people among all the category in marital status; Single people are also the only one that have this much graduates in this single group / have the largest different between either enrolled or dropouts; On the contrary, for married and divorced people, they all have more dropout than graduated; In literally all the group, enrolled is the smallest category in target")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
+   
+    fig_6 = px.histogram(df, x = 'curricular_units_1st_sem_grade', color = 'target', barmode = 'group', labels = all_col_dic, histnorm = 'percent', nbins = 5, title = 'Result & Grade in sem 1')
+    fig_6.update_traces(marker_line_width = 3)
+    col2.plotly_chart(fig_6)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("People that successfully graduated gets the most score; Dropout student overall score counts was higher than enrolled students; This graph presents a standards in terms of score for student to graduates; It was the same with first semester grades, people who successfully graduated gets the highest score.")
+
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+
+    col1,col2=st.columns([4,5])
+   
+    fig6_2 = px.histogram(df, x = 'curricular_units_2nd_sem_grade', color = 'target', barmode = 'group', labels = all_col_dic, histnorm = 'percent', nbins = 5, title = 'Result & Grade in sem 2')
+    fig6_2.update_traces(marker_line_width = 3)
+    col2.plotly_chart(fig6_2)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Dropout students get 0 as their sec semester grade the most. Surprisingly, there were 75 people that graduated also gets 0 as their second semester grade. Graduated student get the highest score, or have the most student in higher scores compared to group outs and enrolled student’s, for instance, from 11.25-11.749 to 16.75-17.249. The number of student enrolled or dropout are similar in every score level except for 0.")
+
+
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")    
+    col1,col2=st.columns([4,5])
+    
+    fig_7 = px.histogram(df, x = 'marital_status', color = 'target', barmode = 'group', labels = all_col_dic, title = 'Result & marital status')
+    fig_7.update_traces(marker_line_width = 3)
+    col2.plotly_chart(fig_7)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("Single is the group that includes the most people among all the category in marital status; Single people are also the only one that have this much graduates in this single group / have the largest different between either enrolled or dropouts; On the contrary, for married and divorced people, they all have more dropout than graduated; In literally all the group, enrolled is the smallest category in target")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
         
     st.subheader("Pie charts")
     col1,col2=st.columns([4,5])
-    with st.form("pie: Target and marital status"):
-        pie1 = px.pie(df, names = 'marital_status', color = 'target', labels = all_col_dic, title = 'Target & marital status')
-        col2.plotly_chart(pie1)
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown("There were 88.6 percent of single people dropout; There are 8.57% of married people graduated; 2.06% of divorced people graduated; 0.565% of divorced people graduated; 0.136% of facto union dropouts; 0.09% of widower enrolled.")
-        col1.markdown(" ")
-        col1.markdown(" ")
-        col1.markdown(" ")
+   
+    pie1 = px.pie(df, names = 'marital_status', color = 'target', labels = all_col_dic, title = 'Target & marital status')
+    col2.plotly_chart(pie1)
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown("There were 88.6 percent of single people dropout; There are 8.57% of married people graduated; 2.06% of divorced people graduated; 0.565% of divorced people graduated; 0.136% of facto union dropouts; 0.09% of widower enrolled.")
+    col1.markdown(" ")
+    col1.markdown(" ")
+    col1.markdown(" ")
         
-    with st.form("pie: Target and grade"):
-        pie2 = px.pie(df, names = 'curricular_units_2nd_sem_grade', color = 'target',labels = all_col_dic, title = 'Target & grade')
-        col2.plotly_chart(pie2)
+   
+    pie2 = px.pie(df, names = 'curricular_units_2nd_sem_grade', color = 'target',labels = all_col_dic, title = 'Target & grade')
+    col2.plotly_chart(pie2)
 
 
 
@@ -960,21 +977,30 @@ if selected=="Conclusion":
     st.title("Conclusion")
     
     st.markdown("For student’s background analysis:")
-    st.markdown("The analysis of student backgrounds indicates that scholarships are more frequently awarded to higher-performing students and unevenly distributed across different majors, with a notable emphasis on Nursing students. Despite high enrollment in Management programs, scholarship holders in these courses are relatively few, suggesting a somewhat random allocation process. Marital status plays a significant role in academic performance and course preferences, with single students making up the majority and favoring Nursing and Management, while married and widowed students also show interest in these fields alongside Social Services. Legally separated and divorced individuals lean towards Social Services. Age at enrollment reveals that older students, who often attend evening classes due to work commitments, are more targeted and specific in their course selection, particularly favoring Biofuel Technology and Management. Younger students tend to enroll in a broader range of courses, especially Journalism & Communication and Nursing. High-scoring students typically enroll at a younger age, around 18. This analysis underscores the complex factors influencing scholarship distribution, course preferences, and academic success among students based on age and marital status.")
+    st.markdown("The analysis of student backgrounds indicates that scholarships are more frequently awarded to higher-performing students and unevenly distributed across different majors, with a notable emphasis on Nursing students. Despite high enrollment in Management programs, scholarship holders in these courses are relatively few, suggesting a somewhat random allocation process. ")
+    st.markdown("Marital status also presents numbers of valuable information through academic performance and course preferences, with single students making up the majority and favoring Nursing and Management, while married and widowed students also show interest in these fields alongside Social Services. Legally separated and divorced individuals lean towards Social Services. ")
+    st.markdown("Age at enrollment reveals that older students, who often attend evening classes due to work commitments, are more targeted and specific in their course selection, particularly favoring Biofuel Technology and Management. Younger students tend to enroll in a broader range of courses, especially Journalism & Communication and Nursing. High-scoring students typically enroll at a younger age, around 18. This analysis underscores the complex factors influencing scholarship distribution, course preferences, and academic success among students based on age and marital status.")
     st.markdown("")
-    st.markdown("For parents background analysis:")
-    st.markdown("The graph shows that the top three qualifications of a mother are commerce courses, secondary education, and bachelor degrees. These qualifications are at the same education level, but secondary education is significantly lower than bachelor degrees. Mothers' qualifications do not have a direct bond with students' scores, but they might have some influence. Father's qualifications are displayed differently, with primary education and secondary education being the most frequent for students getting different scores. There were only a few percentages of fathers with a degree higher or equal to bachelor's. The situation and features in the graph of father's occupation and 2nd Sem grade were similar with mother's occupation, except fathers were in administrative staff chasing after intermediate level technicians and professions in higher scores.")
+    st.markdown("<b>For parents background analysis:<b>")
+    st.markdown("Parents background and grades")
+    st.markdown("Starting with mother’s qualification. The highest bar indicates mothers who qualify for commerce courses, with most students achieving high scores. Secondary education is the second highest qualification, followed by bachelor degrees. In higher scores, the number of secondary education qualifications increases, closer to the number of commerce courses. However, secondary education is significantly lower compared to bachelor degrees. But based on the student’s score, which does not present a significant difference, proves that mothers’ qualifications do not have a direct bond with students' scores, but they do have some influence, as educated mothers are still the top in quantity at different score levels.")
+    st.markdown("For father's qualification, the top frequent father’s qualification that are displayed in the graph for students getting different score was primary education and secondary education, which was a lower education level compared to mother’s qualification. There were only little percentage of father that have a qualification for a degree higher or equal to bachelor. There were not significant change for father’s qualification for student’s that are getting either higher or lower scores, there were only the top two frequent qualifications")
+    st.markdown("Moving on to mother's occupation. The number of mothers that have an occupation of intermediate level technicians and professions are the most. Due to the significant different between the number of mothers that occupies in intermediate level technicians and professions compared to other occupations, there was also a significant difference in each score level between them. As the scores increases, lesser student in each score bands, numbers of mothers who occupies in personal service workers are increasing and is similar to numbers of mother occupies in intermediate level technicians and professions.")
+    st.markdown("In the last, for father’s qualification, the situation and features in the graph of father’s occupation and 2nd Sem grade was pretty much the same with mother’s occupation. Except it have fathers occupies in administrative staff chasing after number of father’s occupies intermediate level technicians and professions in higher scores, rather than personal service workers.")
     st.markdown("")
-    st.markdown("In the dropout bar, unskilled workers account for 75.6% of mothers' occupations, followed by intermediate level technicians and professions, administrative staff, and personal service workers. The last two occupations for mothers who have a kid that drop out are administrative staff and personal service workers. In the graduate bar, the occupation of specialists in different realm accounts for 71%, followed by intermediate level technicians, personal service worker, and armed forces professions. The graduated bar still missing one occupation of unknown for mother's occupation, but it includes all other occupations.")
+    st.markdown("Parent background and final result (dropout, graduation, and enrollment rates)")
+    st.markdown("Starting with, mother’s occupation. For dropouts, the majority of mothers were unskilled workers (75.6%), followed by intermediate technicians (31%), with a small percentage in administrative and personal service roles. Graduates were mainly children of specialist professionals (71%), with intermediate technicians, personal service workers, and armed forces professions each around 50%. Enrolled students included all occupations, uniquely featuring a 100% rate in the \"unknown\" occupation.")
+    st.markdown("Secondly, for father’s occupation, dropouts were also predominantly children of unskilled workers (75%), followed by administrative staff and intermediate technicians (22% and 31%). Graduated students mainly had fathers with \"unknown\" occupations, followed by personal service workers, armed forces professionals, and specialists in various fields. Enrolled students were mostly children of operators, followed by specialists and armed forces professionals, with low enrollment among children of unskilled workers.")
+    st.markdown("Thirdly, for mother’s qualification, it shows that high dropout rates were seen among mothers with specialization and technical preprofessional courses (100%). Master’s degrees had a low dropout rate (16%). Graduates were mostly children of mothers with qualifications in accounting and administration (58%) and Master’s degrees (53%). Enrollments were generally low across all qualifications, with the highest rates among Master’s, Bachelor’s, and Doctorate degrees (30%, 23%, 24%).")
+    st.markdown("Lastly, father’s qualification. Dropouts were highest among fathers with qualifications in accounting, technical courses, and commerce (100%). Middle-tier dropout rates appeared in unknown, bachelor, and doctorate qualifications (57%-72%). Graduates mainly came from fathers with secondary and primary education (51%) and Master’s degrees (48%). Enrollment was low across the board, with higher rates among specialization courses and bachelor degrees, except for the unknown category which was particularly low.")
+    st.markdown("Overall, the data show significant links between parental occupation and qualifications with their children’s educational outcomes, revealing specific trends in dropout, graduation, and enrollment rates.")
     st.markdown("")
-    st.markdown("In the enrolled column, father's occupation of operators accounts for the highest percent, followed by specialists in different realm and armed forces professions. Unknown occupations have a very low enrolled percentage in this graph.")
-    st.markdown("")
-    st.markdown("Mother's qualifications drop out for 100% in the dropout column, with specialization courses and technical preprofessional courses dropping out for 100%. Accounting and administrating account for the most percent, followed by master's and doctorate. In the enrolled bar, all columns are in a fairly low zone, with master's, bachelor's, and doctorate qualifications on the lead. The situation and features in the graph of father's occupation and 2nd Sem grade were similar with mother's occupation, except fathers were in administrative staff chasing after intermediate level technicians and professions in higher scores.")
-    st.markdown("")
-    st.markdown("For causes that different mother’s factor interns of their qualification, I found that mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it donates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
+    st.markdown("For courses people in different age favors, their mother’s qualification may have influence towards the choice of the student’e major to a certain extent; There were lots of mother’s qualification was commerce courses, therefore, it dominates literally every single source that the student majors; There was a huge difference between the number of students that major different courses.")
     st.markdown("")
     st.markdown("For Target analysis:")
-    st.markdown("The graph presented shows that GDP is barely connected to student's grades, with no significant differences between students' targets, such as dropout or not. Students in areas with higher and lower unemployment rates tend to major in courses that involve unique skills and specialties. For areas with low unemployment rates, top majors include animation & multimedia design, tourism, communication design, journalism and communication, social service, managements, basic education, veterinary nursing, agriculture, and information engineering. For areas with higher unemployment rates, top majors include nursing and agronomy technologies (biofuel). Successfully graduated students receive the highest scores, while dropout students receive the lowest scores. Single people have the most graduates among all marital status categories, with the largest difference between enrolled and dropouts. In all groups, enrolled is the smallest category in target. The graph also reveals that students in areas with low unemployment tend to major in fields like entertainment, while those in areas with high unemployment tend to major in fields like nursing and agronomy technologies.")
+    st.markdown("The graph presented shows that GDP is barely connected to student's grades, with no significant differences between students' targets, such as dropout or not. For employment rate, students in areas with higher and lower unemployment rates tend to major in courses that involve unique skills and specialties.")
+    st.markdown("For areas with low unemployment rates, top majors include animation & multimedia design, tourism, communication design, journalism and communication, social service, managements, basic education, veterinary nursing, agriculture, and information engineering. For areas with higher unemployment rates, top majors include nursing and agronomy technologies (biofuel). The graph also reveals that students in areas with low unemployment tend to major in fields like entertainment and art related, while those in areas with high unemployment tend to major in fields like nursing and agronomy technologies that requires a lots of specialties in skill.")
+    st.markdown("In terms of the final result, successfully graduated students receive the highest scores, while dropout students receive the lowest scores. Single people have the most graduates among all marital status categories, with the largest difference between enrolled and dropouts. In all groups, enrolled is the smallest category in target.")
 
     
     
