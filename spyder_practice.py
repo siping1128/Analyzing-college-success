@@ -15,7 +15,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 st.set_page_config(layout="wide")
 
-my_path=''
+my_path='/Users/zhengsiping/Desktop/data_science/'
 
 df = pd.read_csv(my_path+'dataset.csv')
 
@@ -150,7 +150,7 @@ all_col_dic.update(cat_dict.copy())
 with st.sidebar: 
 	selected = option_menu(
 		menu_title = 'Navigation Pane',
-		options = ['Abstract', 'Background Information', 'Data Cleaning','Exploratory Analysis', 'Student background', 'Parent’s background', 'Analysis of final result', 'Conclusion', 'Bibliography'],
+		options = ['Abstract', 'Background Information', 'Data Cleaning','Exploratory Analysis', 'Student background', 'Parent’s background', 'College retention', 'Conclusion', 'Bibliography'],
 		menu_icon = 'music-note-list',
 		icons = ['bookmark-check', 'book', 'map', 'person-walking', 'mortarboard', 'motherboard', 'clipboard2-pulse', 'envelope-paper', 'feather'],
 		default_index = 0,
@@ -183,7 +183,7 @@ if selected=="Background Information":
     st.markdown('The major reason that shows the importance to know the possible factors that could possibly led to the success or a drop in student’s learning process was because education it self was very important. As a student, it is informative to analyze and gain an in-depth understanding of the impact of different factors on students during their time as a student. Analyzing this data will provide us with an in-depth look at what motivates students to stay in school or to drop out of a variety of disciplines such as agronomy, design, education, nursing, journalism management, social services, or technology.')
     st.markdown('First of all, it was important to you. It helps to develop critical thinking and learn basic skill that you need as a grown up, the benefits of it includes a relatively healthy diets and body. Based on News medical.com<sup>5</sup>, researchers found that for every year of education, the risk of death, barring unforeseen accidents, decreased by two percent. This means that people who completed six years of elementary school had an average 13 percent lower risk of death; after high school, the risk of death was nearly 25 percent lower; and with 18 years of education, the risk of death was 34 percent lower. Dr. Terje Andreas Eikemo, the co-author and head of Centre for Global Health Inequalities Research (CHAIN) at the Norwegian University of Science and Technology (NTNU) have once said that :"Education is important in its own right, not just for its benefits on health, but now being able to quantify the magnitude of this benefit is a significant development.', unsafe_allow_html = True)
     st.markdown('Further more, it enabled you to find and develop your own expertise that made you unique and gives you an opportunity to earn money and live independently. According to oecd.com<sup>6</sup>, on average in OECD countries, the unemployment rate for those with higher education has been below 5 per cent, while the unemployment rate for those with only upper secondary education is below 8 per cent. Between 1998 and 2010, the unemployment rate for those with no upper secondary education exceeded 10 per cent on several occasions. During the economic crisis, the average increase in the unemployment rate for persons with no upper secondary education was 1.1 percentage points higher than for persons with at least upper secondary education. In addition, based on world bank blogs, an additional year of schooling increases earnings by 10 percent a year.', unsafe_allow_html = True)
-    st.markdown('On top of that, in a more macro level, it benefits<sup>7</sup> the whole “humanity”. Educated people develops local industry, economy, infrastructures etc. especially the internet that made everyone’s lives being more efficient. ')
+    st.markdown('On top of that, in a more macro level, it benefits<sup>7</sup> the whole “humanity”. Educated people develops local industry, economy, infrastructures etc. especially the internet that made everyone’s lives being more efficient. ', unsafe_allow_html = True)
 
   
     
@@ -331,6 +331,213 @@ cat_dict = {'marital_status':"Marital status", 'application_mode':'Application m
 if selected=="Exploratory Analysis":
     st.title('Exploratory Analysis')
     my_colors = ['#46d2d2', '#1e7b7b', '#99ffcc', '#ccffe5', '#ffd9b3', '#ff8c1a', '#f2e6ff', '#ca99ff', '#cceeff', ' #4dc3ff', '#007399', '#004d66', '#ff5c33', '#b32400', '#df9f9f', '#cc6666', '#bf4040', '#732626', '#c6538c', '#993366', '#6666ff', '#1a1aff', '#e6e6ff', '#ddff99', '#ccff66', '#558000', '#b3b3cc', '#8585ad', ' #47476b', '#333333']
+
+    st.header("Exploring college retention and other variables through histograms and pie charts")
+    #graph 7
+    st.markdown("### <b>Exploring college retention and a numeric variable (histogram)</b>",unsafe_allow_html=True)
+    col13,col14=st.columns([3,5])
+    with st.form("### <b>Exploring college retention and a numeric variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col13x = col13.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 22)
+        col13xdf = [k for k,v in num_dict.items() if v == col13x][0]
+        
+        #creatig color input
+        col13cdf = df['target']
+        
+        #check box for percent
+        percent = None
+        check13 = col13.checkbox('Check to display a normalized histogram', key = 35)
+        if check13:
+            percent = "percent"
+        
+        #add the check box
+        check13_2 = col13.checkbox("Check to decide the number of bins",key=36)
+        b13 = 4
+        if check13_2:
+            col13_ni2 = col13.number_input("Enter a number to decide the number of bins", min_value=4, placeholder="Type a number here")
+            b13 = col13_ni2
+            
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig7 = px.histogram(df, x = col13xdf, color = col13cdf, barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, histnorm = percent, nbins = b13)
+            fig7.update_traces(marker_line_width = 3)
+            col14.plotly_chart(fig7)
+              
+    
+    #graph 8
+    st.markdown("### <b>Exploring college retention and a categorical variable (histogram)</b>",unsafe_allow_html=True)
+    col15,col16=st.columns([3,5])
+    with st.form("### <b>Exploring college retention and a categorical variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col15x = col15.selectbox('Choose a categorical variable to display in the X axis', cat_dict.values(), key = 23)
+        col15xdf = [k for k,v in cat_dict.items() if v == col15x][0]
+        
+        #creatig color input
+        col15cdf = df['target']
+            
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig8 = px.histogram(df, x = col15xdf, color = col15cdf, barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic)
+            fig8.update_traces(marker_line_width = 3)
+            col16.plotly_chart(fig8)    
+    
+    #graph 13
+    st.markdown("### <b>Exploring college retention and a categorical variable (pie charts)</b>",unsafe_allow_html=True)
+    col33,col34=st.columns([3,5])
+    with st.form("### <b>Exploring college retention and a categorical variable (pie charts)</b>"):
+        
+        #creatig an input
+        col33x = col33.selectbox('Choose a numeric variable', cat_dict.values(), key = 27)
+        col33xdf = [k for k,v in cat_dict.items() if v == col33x][0]
+        
+        #creatig color input
+        col33cdf = df['target']
+            
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig17 = px.pie(df, names = col33xdf, color = col33cdf, color_discrete_sequence= my_colors,labels = all_col_dic)
+            col34.plotly_chart(fig17)
+
+
+    #graph 14
+    st.markdown("### <b>Exploring college retention and a numeric variable (pie charts)</b>",unsafe_allow_html=True)
+    col35,col36=st.columns([3,5])
+    with st.form("### <b>Exploring college retention and a numeric variable (pie charts)</b>"):
+        
+        #creatig an input
+        col35x = col35.selectbox('Choose a numeric variable', num_dict.values(), key = 28)
+        col35xdf = [k for k,v in num_dict.items() if v == col35x][0]
+        
+        #creatig color input
+        col35cdf = df['target']
+
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig18 = px.pie(df, names = col35xdf, color = col35cdf, color_discrete_sequence= my_colors,labels = all_col_dic)
+            col36.plotly_chart(fig18)
+
+
+    st.header('Exploring student\'s background (Marital status & Scholarship holder) and other variables through histograms')
+    #graph 9
+    st.markdown("### <b>Exploring student\'s background and a numeric variable (histogram)</b>",unsafe_allow_html=True)
+    col17,col18=st.columns([2,6])
+    with st.form("### <b>GExploring student\'s background and a numeric variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col17x = col17.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 24)
+        col17xdf = [k for k,v in num_dict.items() if v == col17x][0]
+            
+        #check box for percent
+        percent = None
+        check17 = col17.checkbox('Check to display a normalized histogram', key = 37)
+        if check17:
+            percent = "percent"
+        
+        #add the check box
+        check17_2 = col17.checkbox("Check to decide the number of bins",key=38)
+        b17 = 5
+        if check17_2:
+            col17_ni2 = col17.number_input("Enter a number to decide the number of bins", min_value=5, placeholder="Type a number here")
+            b17 = col17_ni2
+        
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig9 = px.histogram(pd.melt(df, id_vars= [col17xdf], value_vars = ['marital_status', 'scholarship_holder']), x = col17xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors, facet_col = 'variable', labels = all_col_dic, nbins = b17, histnorm = percent, facet_col_wrap =2)
+            fig9.update_traces(marker_line_width = 2)
+            col18.plotly_chart(fig9)
+            
+            
+            
+    #graph 10
+    st.markdown("### <b>Exploring student\'s background and a categorical variable (histogram)</b>",unsafe_allow_html=True)
+    col19,col20=st.columns([2,6])
+    with st.form("### <b>Exploring student\'s background and a categorical variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col19x = col19.selectbox('Choose a categorical variable to display in the X axis', cat_dict.values(), key = 25)
+        col19xdf = [k for k,v in cat_dict.items() if v == col19x][0]
+
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig10 = px.histogram(pd.melt(df, id_vars= [col19xdf], value_vars = ['marital_status', 'scholarship_holder']), x = col19xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors, facet_col = 'variable', labels = all_col_dic, facet_col_wrap =2)
+            fig10.update_traces(marker_line_width = 3)
+            col20.plotly_chart(fig10)
+            
+            
+    st.header('Exploring parent\'s background (Occupations & Qualifications) and other variables through histograms')           
+    #graph 11
+    st.markdown("### <b>Exploring parent\'s background and a numeric variable (histogram)</b>",unsafe_allow_html=True)
+    col21,col22=st.columns([2,6])
+    with st.form("### <b>Exploring parent\'s background and a numeric variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col21x = col21.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 26)
+        col21xdf = [k for k,v in num_dict.items() if v == col21x][0]
+        
+        #creatig color input
+        col21cdf = df['mother\'s_qualification']
+        
+        #check box for percent
+        percent21 = None
+        check21 = col21.checkbox('Check to display a normalized histogram', key = 39)
+        if check21:
+            percent21 = "percent"
+        
+        #add the check box
+        check21_2 = col21.checkbox("Check to decide the number of bins",key=40)
+        b21 = 6
+        if check21_2:
+            col21_ni2 = col21.number_input("Enter a number to decide the number of bins", min_value=6, placeholder="Type a number here")
+            b21 = col21_ni2
+            
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig11 = px.histogram(pd.melt(df, id_vars=[col21xdf], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = col21xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = b21, histnorm = percent21)
+            fig11.update_traces(marker_line_width = 0.3)
+            fig11.update_yaxes(matches=None)
+            col22.plotly_chart(fig11)
+
+
+    #graph 12
+    st.markdown("### <b>Exploring parent\'s background and a categorical variable (histogram)</b>",unsafe_allow_html=True)
+    col23,col24=st.columns([2,6])
+    with st.form("### <b>Exploring parent\'s background and a categorical variable (histogram)</b>"):
+        
+        #creatig x axis input
+        col23x = col23.selectbox('Choose a numeric variable to display in the X axis', cat_dict.values(), key = 30)
+        col23xdf = [k for k,v in cat_dict.items() if v == col23x][0]
+        
+        #creatig color input
+        col21cdf = df['mother\'s_qualification']
+
+        #check box for percent
+        percent23 = None
+        check23 = col23.checkbox('Check to display a normalized histogram', key = 31)
+        if check23:
+            percent23 = "percent"        
+
+        #submite bottom
+        submitted = st.form_submit_button("Submit to produce the Histogram")
+        if submitted:
+            fig12 = px.histogram(pd.melt(df, id_vars=[col23xdf], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = col23xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, histnorm = percent23)
+            fig12.update_traces(marker_line_width = 0.3)
+            fig12.update_yaxes(matches=None)
+            col24.plotly_chart(fig12)
+           
+            
+            
+            
+
+    st.header('Exploring the data without limitations')
     
     #graph 1
     st.markdown("### <b>Graph 1 (Histogram): 2 Numeric variable and 1 categorical variables</b>", unsafe_allow_html=True)
@@ -510,209 +717,17 @@ if selected=="Exploratory Analysis":
   
         
   
-    #graph 7
-    st.markdown("### <b>Graph 7 (Histogram): Target and 1 numeric variable</b>",unsafe_allow_html=True)
-    col13,col14=st.columns([3,5])
-    with st.form("### <b>Graph 7 (Histogram): Target and 1 numeric variable</b>"):
-        
-        #creatig x axis input
-        col13x = col13.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 22)
-        col13xdf = [k for k,v in num_dict.items() if v == col13x][0]
-        
-        #creatig color input
-        col13cdf = df['target']
-        
-        #check box for percent
-        percent = None
-        check13 = col13.checkbox('Check to display a normalized histogram', key = 35)
-        if check13:
-            percent = "percent"
-        
-        #add the check box
-        check13_2 = col13.checkbox("Check to decide the number of bins",key=36)
-        b13 = 4
-        if check13_2:
-            col13_ni2 = col13.number_input("Enter a number to decide the number of bins", min_value=4, placeholder="Type a number here")
-            b13 = col13_ni2
+
             
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig7 = px.histogram(df, x = col13xdf, color = col13cdf, barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, histnorm = percent, nbins = b13)
-            fig7.update_traces(marker_line_width = 3)
-            col14.plotly_chart(fig7)
+
+
+
+
             
+            
+            
+
     
-    
-    
-    #graph 8
-    st.markdown("### <b>Graph 8 (Histogram): Target and 1 categorical variable</b>",unsafe_allow_html=True)
-    col15,col16=st.columns([3,5])
-    with st.form("### <b>Graph 8 (Histogram): Target and 1 categorical variable</b>"):
-        
-        #creatig x axis input
-        col15x = col15.selectbox('Choose a categorical variable to display in the X axis', cat_dict.values(), key = 23)
-        col15xdf = [k for k,v in cat_dict.items() if v == col15x][0]
-        
-        #creatig color input
-        col15cdf = df['target']
-            
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig8 = px.histogram(df, x = col15xdf, color = col15cdf, barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic)
-            fig8.update_traces(marker_line_width = 3)
-            col16.plotly_chart(fig8)
-            
-
-
-
-    #graph 9
-    st.markdown("### <b>Graph 9 (Histogram): Student’s background information and 1 numeric variable:</b>",unsafe_allow_html=True)
-    col17,col18=st.columns([2,6])
-    with st.form("### <b>Graph 9 (Histogram): Student’s background information and 1 numeric variable</b>"):
-        
-        #creatig x axis input
-        col17x = col17.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 24)
-        col17xdf = [k for k,v in num_dict.items() if v == col17x][0]
-            
-        #check box for percent
-        percent = None
-        check17 = col17.checkbox('Check to display a normalized histogram', key = 37)
-        if check17:
-            percent = "percent"
-        
-        #add the check box
-        check17_2 = col17.checkbox("Check to decide the number of bins",key=38)
-        b17 = 5
-        if check17_2:
-            col17_ni2 = col17.number_input("Enter a number to decide the number of bins", min_value=5, placeholder="Type a number here")
-            b17 = col17_ni2
-        
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig9 = px.histogram(pd.melt(df, id_vars= [col17xdf], value_vars = ['marital_status', 'scholarship_holder']), x = col17xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors, facet_col = 'variable', labels = all_col_dic, nbins = b17, histnorm = percent, facet_col_wrap =2)
-            fig9.update_traces(marker_line_width = 2)
-            col18.plotly_chart(fig9)
-            
-            
-            
-    #graph 10
-    st.markdown("### <b>Graph 10 (Histogram): Student’s background information and 1 categorical variable</b>",unsafe_allow_html=True)
-    col19,col20=st.columns([2,6])
-    with st.form("### <b>Graph 10 (Histogram): Student’s background information and 1 categorical variable</b>"):
-        
-        #creatig x axis input
-        col19x = col19.selectbox('Choose a categorical variable to display in the X axis', cat_dict.values(), key = 25)
-        col19xdf = [k for k,v in cat_dict.items() if v == col19x][0]
-
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig10 = px.histogram(pd.melt(df, id_vars= [col19xdf], value_vars = ['marital_status', 'scholarship_holder']), x = col19xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors, facet_col = 'variable', labels = all_col_dic, facet_col_wrap =2)
-            fig10.update_traces(marker_line_width = 3)
-            col20.plotly_chart(fig10)
-            
-            
-            
-    #graph 11
-    st.markdown("### <b>Graph 12 (Histogram): Parent's background characteristic and 1 numeric variable</b>",unsafe_allow_html=True)
-    col21,col22=st.columns([2,6])
-    with st.form("### <b>Graph 12 (Histogram): Parent's background characteristic and 1 numeric variable</b>"):
-        
-        #creatig x axis input
-        col21x = col21.selectbox('Choose a numeric variable to display in the X axis', num_dict.values(), key = 26)
-        col21xdf = [k for k,v in num_dict.items() if v == col21x][0]
-        
-        #creatig color input
-        col21cdf = df['mother\'s_qualification']
-        
-        #check box for percent
-        percent21 = None
-        check21 = col21.checkbox('Check to display a normalized histogram', key = 39)
-        if check21:
-            percent21 = "percent"
-        
-        #add the check box
-        check21_2 = col21.checkbox("Check to decide the number of bins",key=40)
-        b21 = 6
-        if check21_2:
-            col21_ni2 = col21.number_input("Enter a number to decide the number of bins", min_value=6, placeholder="Type a number here")
-            b21 = col21_ni2
-            
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig11 = px.histogram(pd.melt(df, id_vars=[col21xdf], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = col21xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, nbins = b21, histnorm = percent21)
-            fig11.update_traces(marker_line_width = 0.3)
-            fig11.update_yaxes(matches=None)
-            col22.plotly_chart(fig11)
-
-
-    #graph 13
-    st.markdown("### <b>Graph 13 (Histogram): Parent's background characteristic and 1 cetegorical variable</b>",unsafe_allow_html=True)
-    col23,col24=st.columns([2,6])
-    with st.form("### <b>Graph 13 (Histogram): Parent's background characteristic and 1 cetegorical variable</b>"):
-        
-        #creatig x axis input
-        col23x = col23.selectbox('Choose a numeric variable to display in the X axis', cat_dict.values(), key = 30)
-        col23xdf = [k for k,v in cat_dict.items() if v == col23x][0]
-        
-        #creatig color input
-        col21cdf = df['mother\'s_qualification']
-
-        #check box for percent
-        percent23 = None
-        check23 = col23.checkbox('Check to display a normalized histogram', key = 31)
-        if check23:
-            percent23 = "percent"        
-
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig12 = px.histogram(pd.melt(df, id_vars=[col23xdf], value_vars=['mother\'s_occupation', 'father\'s_occupation', 'mother\'s_qualification', 'father\'s_qualification']), x = col23xdf, color = 'value', barmode = 'group', color_discrete_sequence= my_colors,labels = all_col_dic, facet_col = 'variable', facet_col_wrap = 2, histnorm = percent23)
-            fig12.update_traces(marker_line_width = 0.3)
-            fig12.update_yaxes(matches=None)
-            col24.plotly_chart(fig12)
-    
-    
-    #graph 13
-    st.markdown("### <b>Graph 14 (Pie chart): Target and 1 categorical variable</b>",unsafe_allow_html=True)
-    col33,col34=st.columns([3,5])
-    with st.form("### <b>Graph 14 (Pie chart): Target and 1 categorical variable</b>"):
-        
-        #creatig an input
-        col33x = col33.selectbox('Choose a numeric variable', cat_dict.values(), key = 27)
-        col33xdf = [k for k,v in cat_dict.items() if v == col33x][0]
-        
-        #creatig color input
-        col33cdf = df['target']
-            
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig17 = px.pie(df, names = col33xdf, color = col33cdf, color_discrete_sequence= my_colors,labels = all_col_dic)
-            col34.plotly_chart(fig17)
-
-
-    #graph 14
-    st.markdown("### <b>Graph 15 (Pie chart): Target and 1 numeric variable</b>",unsafe_allow_html=True)
-    col35,col36=st.columns([3,5])
-    with st.form("### <b>Graph 15 (Pie chart): Target and 1 numeric variable</b>"):
-        
-        #creatig an input
-        col35x = col35.selectbox('Choose a numeric variable', num_dict.values(), key = 28)
-        col35xdf = [k for k,v in num_dict.items() if v == col35x][0]
-        
-        #creatig color input
-        col35cdf = df['target']
-
-        #submite bottom
-        submitted = st.form_submit_button("Submit to produce the Histogram")
-        if submitted:
-            fig18 = px.pie(df, names = col35xdf, color = col35cdf, color_discrete_sequence= my_colors,labels = all_col_dic)
-            col36.plotly_chart(fig18)
 
 
 
@@ -884,8 +899,8 @@ if selected=="Parent’s background":
 
 
 
-if selected=="Analysis of final result":
-    st.title('Analysis of final result') 
+if selected=="College retention":
+    st.title('College retention') 
 
     col1,col2=st.columns([4,5])
     
