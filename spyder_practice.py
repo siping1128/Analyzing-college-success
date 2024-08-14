@@ -15,7 +15,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 st.set_page_config(layout="wide")
 
-my_path='/Users/zhengsiping/Desktop/data_science/'
+my_path=''
 
 df = pd.read_csv(my_path+'dataset.csv')
 
